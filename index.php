@@ -127,11 +127,11 @@ if(isset($_GET['download'])){
                                         </a>
                                     <?php endif ?>
                                 </td>
-                                <td>
+                                <td style="width: 300px">
                                     <?php if($showDir): ?>
                                         <?php echo $dir; ?>
                                     <?php else: ?>
-                                        <?php echo str_replace($dir,DIRECTORY_SEPARATOR,$fileDir); ?>
+                                        <?php echo str_replace($dir,DIRECTORY_SEPARATOR,str_replace($dir.DIRECTORY_SEPARATOR,DIRECTORY_SEPARATOR,$fileDir)); ?>
                                     <?php endif; ?>
                                 </td>
                                 <td style="width: 300px"><?php echo $file['basename']; ?></td>
