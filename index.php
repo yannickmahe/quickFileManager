@@ -198,6 +198,9 @@ if(isset($_GET['download'])){
                     videojs("videoPlayer", {}, function(){
                         // Player (this) is initialized and ready.
                     });
+                    $('#fileview-modal').on('hidden.ns.modal',function(){
+                        $('video').remove();
+                    })
                     $('#fileview-modal').modal();
                 });
             })
