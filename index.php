@@ -98,6 +98,15 @@ if(isset($_GET['download'])){
                     Directory contents
                 <?php endif; ?>
             </h1>
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label class="sr-only" for="filter">Filter</label>
+                        <div class="input-group-addon">Filter</div>
+                        <input type="email" class="form-control" id="filter" placeholder="...">
+                    </div>
+                </div>
+            </form>
             <table class="table">
                 <thead>
                 <tr>
@@ -110,9 +119,10 @@ if(isset($_GET['download'])){
                     <th>Extension</th>
                 </tr>
                 </thead>
+                <tbody class="searchable">
                 <?php foreach($paths as $fileDir => $files): ?>
                         <?php foreach($files as $file): ?>
-                            <tr>
+                            <tr class="searchable">
                                 <td>
                                     <a data-toggle="tooltip"
                                        title="Download"
@@ -138,7 +148,7 @@ if(isset($_GET['download'])){
                                         </a>
                                     <?php endif ?>
                                 </td>
-                                <td style="width: 300px">
+                                <td style="max-width: 300px">
                                     <?php if($showDir): ?>
                                         <?php echo $dir; ?>
                                     <?php else: ?>
@@ -157,6 +167,7 @@ if(isset($_GET['download'])){
                             </tr>
                         <?php endforeach; ?>
                 <?php endforeach; ?>
+                </tbody>
             </table>
         </div>
 
@@ -184,6 +195,15 @@ if(isset($_GET['download'])){
             $(function () {
                 $('[data-toggle="popover"]').popover();
                 $('[data-toggle="tooltip"]').tooltip();
+
+                $('#filter').keyup(function () {
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.searchable tr').hide();
+                    $('.searchable tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+                });
+
                 $('.view-image').click(function(event){
                     event.preventDefault();
                     var url = $(this).attr('href');
@@ -194,6 +214,7 @@ if(isset($_GET['download'])){
                     $('#fileview-modal div.modal-body').html(html);
                     $('#fileview-modal').modal();
                 });
+
                 $('.view-video').click(function(event){
                    event.preventDefault();
                     var url = $(this).attr('href');
