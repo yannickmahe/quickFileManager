@@ -1,11 +1,12 @@
 <?php
 //Config
-$dir = "/root/Downloads";
+$dir = "/home/yannick/Downloads/today";
 $showDir = false;
 
 //Lib
-function redirect404(){
-
+function error($code = 404, $message = "Not found"){
+    echo "<h1>$code $message</h1>";
+    die;
 }
 function human_filesize($bytes, $decimals = 2) {
     $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
@@ -14,6 +15,9 @@ function human_filesize($bytes, $decimals = 2) {
 }
 
 //Routing
+if(!is_dir($dir)){
+    error(500,"Invalid configuration");
+}
 if(isset($_GET['download'])){
     $file = $_GET['download'];
     if(!$showDir){
@@ -24,7 +28,7 @@ if(isset($_GET['download'])){
 
     //Check if file is a file
     if(!is_file($file)){
-        redirect404();
+        error(404);
     }
 
     //Download file
@@ -77,6 +81,13 @@ if(isset($_GET['download'])){
         but Video.js includes an 'HTML5 Shiv', which needs to be in the head for older IE versions to respect the
         video tag as a valid element. -->
         <script src="//vjs.zencdn.net/4.10/video.js"></script>
+        <title>
+            <?php if($showDir): ?>
+                <?php echo $dir; ?>
+            <?php else: ?>
+                Directory contents
+            <?php endif; ?>
+        </title>
     </head>
 	<body>
         <div class="container">
