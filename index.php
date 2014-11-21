@@ -1,6 +1,6 @@
 <?php
 //Config
-$dir = "/home/yannick/Downloads/today";
+$dir = "/root/Downloads";
 $showDir = false;
 
 //Lib
