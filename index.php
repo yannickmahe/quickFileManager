@@ -58,7 +58,7 @@ if(isset($_GET['download'])){
             if($showDir){
                 $pathinfo['download'] = $pathinfo['dirname'].DIRECTORY_SEPARATOR.$pathinfo['basename'];
             } else {
-                $pathinfo['download'] = $pathinfo['basename'];
+                $pathinfo['download'] = str_replace($dir, '', $pathinfo['dirname'].DIRECTORY_SEPARATOR.$pathinfo['basename']);
             }
 
             $paths[$pathinfo['dirname']][] = $pathinfo;
